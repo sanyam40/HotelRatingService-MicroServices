@@ -1,0 +1,14 @@
+server:
+  port: 8084
+  
+spring:
+  application:
+    name: CONFIG-SERVER
+    
+    
+  cloud:
+    config:
+      server:
+        git:
+          uri: https://github.com/sanyam40/MicroServices-Configuration-files
+          clone-on-start: true
