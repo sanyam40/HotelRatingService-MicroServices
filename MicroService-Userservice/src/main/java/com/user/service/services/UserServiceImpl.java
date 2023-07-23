@@ -5,10 +5,7 @@ import java.util.List;
 import java.util.UUID;
 import java.util.stream.Collectors;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 
@@ -27,11 +24,10 @@ public class UserServiceImpl implements UserService {
 
 	@Autowired
 	private RestTemplate restTemplate;
-	
+
 	@Autowired
 	private HotelService hotelService;
 
-	
 	// private Logger logger = LoggerFactory.getLogger(UserServiceImpl.class);
 
 	@Override
@@ -62,12 +58,12 @@ public class UserServiceImpl implements UserService {
 
 		List<Rating> ratingList = ratings.stream().map(rating -> {
 			// API call to hotelService to get the hotel
-			
+
 //			ResponseEntity<Hotel> forEntity = restTemplate
 //					.getForEntity("http://HOTEL-SERVICE/api/hotels/" + rating.getHotelId(), Hotel.class);
 //			Hotel hotel = forEntity.getBody();
-			
-			Hotel hotel=hotelService.getHotel(rating.getHotelId());
+
+			Hotel hotel = hotelService.getHotel(rating.getHotelId());
 			rating.setHotel(hotel);
 
 			return rating;

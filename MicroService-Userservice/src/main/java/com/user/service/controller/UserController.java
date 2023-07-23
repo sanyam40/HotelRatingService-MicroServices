@@ -15,29 +15,43 @@ import org.springframework.web.bind.annotation.RestController;
 import com.user.service.entity.User;
 import com.user.service.services.UserService;
 
+import io.github.resilience4j.circuitbreaker.annotation.CircuitBreaker;
+import io.github.resilience4j.retry.annotation.Retry;
+
 @RestController
 @RequestMapping("/api/users")
 public class UserController {
 
-    @Autowired
-    private UserService userService;
+	@Autowired
+	private UserService userService;
 
-    @PostMapping
-    public ResponseEntity<User> createUser(@RequestBody User user){
-        User user2=userService.saveUser(user);
-        return ResponseEntity.status(HttpStatus.CREATED).body(user2);
-    }
+	@PostMapping
+	public ResponseEntity<User> createUser(@RequestBody User user) {
+		User user2 = userService.saveUser(user);
+		return ResponseEntity.status(HttpStatus.CREATED).body(user2);
+	}
 
-    @GetMapping("/{userId}")
-    public ResponseEntity<User> getUserById(@PathVariable String userId){
-        User user=userService.getUser(userId);
-        return ResponseEntity.status(HttpStatus.OK).body(user);
-    }
+	@GetMapping("/{userId}")
+	@CircuitBreaker(name = "ratingHotelBreaker", fallbackMethod = "ratingHotelFallBack")
+	@Retry(name = "ratingHotelService", fallbackMethod = "ratingHotelFallBack")
+	public ResponseEntity<User> getUserById(@PathVariable String userId) {
+		User user = userService.getUser(userId);
+		return ResponseEntity.status(HttpStatus.OK).body(user);
+	}
 
-    @GetMapping
-    public ResponseEntity<List<User>> getAllUsers(){
-        List<User> users=userService.getUsers();
-        return ResponseEntity.status(HttpStatus.OK).body(users);
-    }
-    
+	// creating fallback method
+	public ResponseEntity<User> ratingHotelFallBack(String userId, Exception ex) {
+		User user = new User();
+		user.setEmail("dummy@gmail.com");
+		user.setName("dummy");
+		user.setAbout(ex.getMessage());
+		return new ResponseEntity<User>(user, HttpStatus.OK);
+	}
+
+	@GetMapping
+	public ResponseEntity<List<User>> getAllUsers() {
+		List<User> users = userService.getUsers();
+		return ResponseEntity.status(HttpStatus.OK).body(users);
+	}
+
 }

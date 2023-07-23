@@ -1,5 +1,5 @@
 server:
-  port: 8084
+  port: 8083
   
 spring:
   application:
@@ -12,3 +12,5 @@ spring:
         git:
           uri: https://github.com/sanyam40/MicroServices-Configuration-files
           clone-on-start: true
+
+          
