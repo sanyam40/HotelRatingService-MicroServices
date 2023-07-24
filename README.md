@@ -1,4 +1,4 @@
-# Hotel Service Backend Microservices Project
+# Microservices Project
 This repository contains a comprehensive microservice-based backend solution for a hotel service application, developed using Spring Boot. The project consists of three microservices - UserService, HotelService, and RatingService, along with essential components like API Gateway, Config Server, Discovery Client, Service Registry, Feign Client, Resilience4j Circuit Breaker, Retry Mechanism, Rate Limiter, and Spring Security with Okta. All endpoints have been thoroughly tested using Postman for reliability and functionality.
 
 # Microservices
@@ -19,5 +19,13 @@ The project incorporates the following components to enhance its functionality:
 - Retry Mechanism: The Retry mechanism is employed to automatically retry failed requests, improving the overall reliability of the system.
 - Rate Limiter: The Rate Limiter controls the rate of incoming requests to prevent overloading the microservices.
 - Spring Security with Okta: Spring Security is integrated with Okta to handle authentication and authorization, ensuring secure access to the microservices.
+
+<img width="960" alt="Screenshot 2023-07-24 180602" src="https://github.com/sanyam40/MicroServices/assets/87993985/2de31966-b4b7-495d-985a-cd0a9a4850a2">
+<img width="960" alt="Screenshot 2023-07-24 180628" src="https://github.com/sanyam40/MicroServices/assets/87993985/145b41bc-4584-4653-964b-602fd0304a0b">
+
+  
+  
+  
+
 
 
